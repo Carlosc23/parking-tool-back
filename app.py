@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request, abort
-from data_dummy import *
-
+from bson import Binary, Code
+from bson.json_util import dumps
+import json
+#from data_dummy import *
+from connect import *
 app = Flask(__name__)
 
 
@@ -9,8 +12,22 @@ def add_car():
     if not request.json or not 'check_in' in request.json:
         abort(400)
     print(request.json)
+    id_1 = retrieve_id()
     car = {
-        'id': cars[-1]['id'] + 1,
+        'id': id_1 + 1,
+        'time': {
+            'check_in': request.json['check_in'],
+            'departure': request.json['departure']
+        },
+        'vehicle': {
+            'color': request.json['color'],
+            'brand': request.json['brand'],
+            'specialn': request.json['specialn'],
+            'type': request.json['type']
+        },
+        'position': request.json['position']
+    },
+    car2 = {
         'time': {
             'check_in': request.json['check_in'],
             'departure': request.json['departure']
@@ -23,15 +40,29 @@ def add_car():
         },
         'position': request.json['position']
     }
-    cars.append(car)
+    data = {'car':car}
+    print(data)
+    print(type(data))
+    print(type(car))
+    print(car[0])
+    print(type(car[0]))
+    a = dict(car[0])
+    print("-------------")
+    print(a)
+    print(type(a))
+    #print(dict(car))
+    #carr = jsonify(car)
+    add_car_hist(a)
+    #add_car_actual(car2[0])
     return jsonify({'car': car}), 201
 
 
 @app.route('/parking_tool/api/v1.0/cars', methods=['GET'])
-def show_cars():
-    return jsonify({'cars': cars})
-
-
+def show_hist_cars():
+    cars = list(retrieve_hist_cars())
+    json_cars = json.loads(dumps(cars))
+    print(json_cars)
+    return jsonify({'cars': json_cars})
 """
 def drop_car():
     pass
