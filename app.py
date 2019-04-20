@@ -8,7 +8,7 @@ from connect import *
 app = Flask(__name__)
 
 
-@app.route('/parking_tool/api/v1.0/cars', methods=['POST'])
+@app.route('/parking_tool/api/v1.0/send/cars', methods=['POST'])
 def add_car():
     if not request.json or not 'check_in' in request.json:
         abort(400)
@@ -41,38 +41,28 @@ def add_car():
         },
         'position': request.json['position']
     }
-    data = {'car': car}
-    print(data)
-    print(type(data))
-    print(type(car))
-    print(car[0])
-    print(type(car[0]))
     a = dict(car[0])
-    print("-------------")
-    print(a)
-    print(type(a))
-    # print(dict(car))
-    # carr = jsonify(car)
     add_car_hist(a)
-    print(type(car2))
-    # a = dict(car2[0])
     add_car_actual(car2)
     return "Ok"
 
 
-@app.route('/parking_tool/api/v1.0/cars', methods=['GET'])
+@app.route('/parking_tool/api/v1.0/hist/cars', methods=['GET'])
 def show_hist_cars():
     cars = list(retrieve_hist_cars())
     json_cars = json.loads(dumps(cars))
     print(json_cars)
     return jsonify({'cars': json_cars})
 
+@app.route('/parking_tool/api/v1.0/actual/cars', methods=['GET'])
+def show_actual_cars():
+    cars = list(retrieve_actual_cars())
+    json_cars = json.loads(dumps(cars))
+    print(json_cars)
+    return jsonify({'cars': json_cars})
 
 """
 def drop_car():
-    pass
-
-def show_cars():
     pass
 """
 
