@@ -2,8 +2,9 @@ from flask import Flask, jsonify, request, abort
 from bson import Binary, Code
 from bson.json_util import dumps
 import json
-#from data_dummy import *
+# from data_dummy import *
 from connect import *
+
 app = Flask(__name__)
 
 
@@ -14,19 +15,19 @@ def add_car():
     print(request.json)
     id_1 = retrieve_id()
     car = {
-        'id': id_1 + 1,
-        'time': {
-            'check_in': request.json['check_in'],
-            'departure': request.json['departure']
-        },
-        'vehicle': {
-            'color': request.json['color'],
-            'brand': request.json['brand'],
-            'specialn': request.json['specialn'],
-            'type': request.json['type']
-        },
-        'position': request.json['position']
-    },
+              'id': id_1 + 1,
+              'time': {
+                  'check_in': request.json['check_in'],
+                  'departure': request.json['departure']
+              },
+              'vehicle': {
+                  'color': request.json['color'],
+                  'brand': request.json['brand'],
+                  'specialn': request.json['specialn'],
+                  'type': request.json['type']
+              },
+              'position': request.json['position']
+          },
     car2 = {
         'time': {
             'check_in': request.json['check_in'],
@@ -40,7 +41,7 @@ def add_car():
         },
         'position': request.json['position']
     }
-    data = {'car':car}
+    data = {'car': car}
     print(data)
     print(type(data))
     print(type(car))
@@ -50,11 +51,13 @@ def add_car():
     print("-------------")
     print(a)
     print(type(a))
-    #print(dict(car))
-    #carr = jsonify(car)
+    # print(dict(car))
+    # carr = jsonify(car)
     add_car_hist(a)
-    #add_car_actual(car2[0])
-    return jsonify({'car': car}), 201
+    print(type(car2))
+    # a = dict(car2[0])
+    add_car_actual(car2)
+    return "Ok"
 
 
 @app.route('/parking_tool/api/v1.0/cars', methods=['GET'])
@@ -63,6 +66,8 @@ def show_hist_cars():
     json_cars = json.loads(dumps(cars))
     print(json_cars)
     return jsonify({'cars': json_cars})
+
+
 """
 def drop_car():
     pass
