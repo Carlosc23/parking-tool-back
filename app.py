@@ -54,6 +54,7 @@ def show_hist_cars():
     print(json_cars)
     return jsonify({'cars': json_cars})
 
+
 @app.route('/parking_tool/api/v1.0/actual/cars', methods=['GET'])
 def show_actual_cars():
     cars = list(retrieve_actual_cars())
@@ -61,9 +62,15 @@ def show_actual_cars():
     print(json_cars)
     return jsonify({'cars': json_cars})
 
+
+@app.route('/parking_tool/api/v1.0/actual/drop/cars', methods=['POST'])
+def empty_parking():
+    position = request.json["position"]
+    return drop_car(position)
+
+
 """
-def drop_car():
-    pass
+
 """
 
 """

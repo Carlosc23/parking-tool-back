@@ -38,6 +38,12 @@ def retrieve_id():
     return int(id_1)
 
 
+def drop_car(position):
+    query = {"position": position}
+    parking_lot_actual.delete_one(query)
+    return "Se ha vaciado el parqueo de la posicion: " + position
+
+
 """add_car({
     'id': 1,
     'time': {
