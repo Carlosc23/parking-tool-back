@@ -1,0 +1,6 @@
+HOST = 'mongodb://Carlosc23:Parkingtool1@ds139956.mlab.com:39956/parking_tool'
+NAME = 'parking_tool'
+# COLLECTION_1 = 'parking_lot_actual'
+# COLLECTION_2 = 'parking_lot_historical'
+COLLECTION_1 = 'test1'
+COLLECTION_2 = 'test2'
