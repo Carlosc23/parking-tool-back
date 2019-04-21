@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Hello World!!'
 
 @app.route('/parking_tool/api/v1.0/send/cars', methods=['POST'])
 def add_car():
