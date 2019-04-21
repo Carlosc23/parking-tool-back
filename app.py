@@ -7,6 +7,7 @@ from connect import *
 
 app = Flask(__name__)
 
+
 @app.route('/parking_tool/api/v1.0/send/cars', methods=['POST'])
 def add_car():
     if not request.json or not 'check_in' in request.json:
