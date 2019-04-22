@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, request, abort
 from bson import Binary, Code
 from bson.json_util import dumps
@@ -96,4 +98,6 @@ def update_task(task_id):
     return jsonify({'task': task[0]})
 """
 if __name__ == '__main__':
-    app.run()
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
