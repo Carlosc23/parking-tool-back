@@ -96,4 +96,4 @@ def update_task(task_id):
     return jsonify({'task': task[0]})
 """
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
