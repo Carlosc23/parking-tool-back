@@ -44,6 +44,17 @@ def drop_car(position):
     return "Se ha vaciado el parqueo de la posicion: " + position
 
 
+def set_departure_car(position, departure):
+    filter, update = {"position": position}, {"$set": {"time.departure": departure}}
+    parking_lot_actual.update_one(filter, update)
+    car = parking_lot_actual.find_one(filter)
+    add_car_hist(car)
+    drop_car(position)
+
+
+# print(retrieve_actual_cars()[1])
+# print(retrieve_hist_cars())
+# set_departure("B25","2:17")
 """add_car({
     'id': 1,
     'time': {

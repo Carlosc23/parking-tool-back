@@ -13,6 +13,10 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!!'
 
+@app.route('/parking_tool/api/v1.0/Login', methods=['POST'])
+def login():
+    pass
+
 @app.route('/parking_tool/api/v1.0/send/cars', methods=['POST'])
 def add_car():
     if not request.json or not 'check_in' in request.json:
@@ -23,7 +27,7 @@ def add_car():
               'id': id_1 + 1,
               'time': {
                   'check_in': request.json['check_in'],
-                  'departure': request.json['departure']
+                  'departure': ""
               },
               'vehicle': {
                   'color': request.json['color'],
@@ -32,24 +36,18 @@ def add_car():
                   'type': request.json['type']
               },
               'position': request.json['position']
-          },
-    car2 = {
-        'time': {
-            'check_in': request.json['check_in'],
-            'departure': request.json['departure']
-        },
-        'vehicle': {
-            'color': request.json['color'],
-            'brand': request.json['brand'],
-            'specialn': request.json['specialn'],
-            'type': request.json['type']
-        },
-        'position': request.json['position']
-    }
+          }
     a = dict(car[0])
-    add_car_hist(a)
-    add_car_actual(car2)
+    add_car_actual(a)
     return "Ok"
+
+@app.route('/parking_tool/api/v1.0/send/cars_departure', methods=['POST'])
+def set_departure():
+    if not request.json or not 'position' in request.json:
+        abort(400)
+    set_departure_car(request.json['position'],request.json['departure'])
+    return "Ok"
+
 
 
 @app.route('/parking_tool/api/v1.0/hist/cars', methods=['GET'])
