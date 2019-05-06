@@ -37,8 +37,8 @@ def add_car():
               },
               'position': request.json['position']
           }
-    a = dict(car[0])
-    add_car_actual(a)
+    #a = dict(car[0])
+    add_car_actual(car)
     return "Ok"
 
 @app.route('/parking_tool/api/v1.0/send/cars_departure', methods=['POST'])
