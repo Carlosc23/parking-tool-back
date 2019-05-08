@@ -13,9 +13,7 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!!'
 
-@app.route('/parking_tool/api/v1.0/Login', methods=['POST'])
-def login():
-    pass
+
 
 @app.route('/parking_tool/api/v1.0/send/cars', methods=['POST'])
 def add_car():
@@ -70,7 +68,6 @@ def show_actual_cars():
 def empty_parking():
     position = request.json["position"]
     return drop_car(position)
-
 
 """
 
