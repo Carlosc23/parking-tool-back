@@ -13,7 +13,17 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!!'
 
-
+@app.route('/parking_tool/api/v1.0/Login', methods=['POST'])
+def login():
+    if not request.json or not 'email' in request.json:
+        abort(400)
+    print(request.json)
+    if find_user(request.json['email'],request.json['password']) == "Valido":
+        return "Ok"
+    elif find_user(request.json['email'],request.json['password']) == "Contraseña invalida" :
+        return "Ha ingresado una contraseña invalida"
+    else:
+        return "Ha ingresado un usuario invalido"
 
 @app.route('/parking_tool/api/v1.0/send/cars', methods=['POST'])
 def add_car():

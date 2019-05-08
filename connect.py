@@ -5,7 +5,7 @@ connection = pymongo.MongoClient(HOST)
 db = connection[NAME]
 parking_lot_actual = db[COLLECTION_1]
 parking_lot_historical = db[COLLECTION_2]
-
+users = db[COLLECTION_3]
 
 def add_car_actual(car):
     parking_lot_actual.insert_one(car)
@@ -51,6 +51,17 @@ def set_departure_car(position, departure):
     #print(car)
     add_car_hist(car)
     drop_car(position)
+
+def find_user(user,password):
+    filter = {"email": user}
+    filter2 = {"email": user, "password":password}
+    if users.find_one(filter):
+        if users.find_one(filter2):
+            return "Valido"
+        else:
+            return "Contraseña invalida"
+    return "Usuario invalido"
+
 
 
 #print(retrieve_actual_cars()[0])
